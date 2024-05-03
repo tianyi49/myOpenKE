@@ -21,10 +21,12 @@ class MarginLoss(Loss):
 	def get_weights(self, n_score):
 		return F.softmax(-n_score * self.adv_temperature, dim = -1).detach()
 
-	def forward(self, p_score, n_score):
+	def forward(self, p_score, n_score,attWeight=None):
 		if self.adv_flag:
 			return (self.get_weights(n_score) * torch.max(p_score - n_score, -self.margin)).sum(dim = -1).mean() + self.margin
 		else:
+			if(attWeight!=None):
+				return (attWeight.unsqueeze(1)*(torch.max(p_score - n_score, -self.margin)+ self.margin)).mean()
 			return (torch.max(p_score - n_score, -self.margin)).mean() + self.margin
 			
 	

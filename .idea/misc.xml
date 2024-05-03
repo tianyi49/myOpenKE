@@ -4,4 +4,7 @@
     <option name="sdkName" value="py39_dgl" />
   </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="py39_dgl" project-jdk-type="Python SDK" />
+  <component name="PythonCompatibilityInspectionAdvertiser">
+    <option name="version" value="3" />
+  </component>
 </project>

@@ -3,9 +3,10 @@ from __future__ import division
 from __future__ import print_function
 
 from .Strategy import Strategy
-from .NegativeSampling import NegativeSampling
+from .NegativeSampling import NegativeSampling,AttNegativeSampling
 
 __all__ = [
     'Strategy',
     'NegativeSampling',
+    'AttNegativeSampling'
 ]

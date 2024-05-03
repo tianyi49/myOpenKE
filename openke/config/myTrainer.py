@@ -12,8 +12,7 @@ import json
 import numpy as np
 import copy
 from tqdm import tqdm
-
-class Trainer(object):
+class myTrainer(object):
 
 	def __init__(self, 
 				 model = None,
@@ -47,10 +46,12 @@ class Trainer(object):
 			'batch_t': self.to_var(data['batch_t'], self.use_gpu),
 			'batch_r': self.to_var(data['batch_r'], self.use_gpu),
 			'batch_y': self.to_var(data['batch_y'], self.use_gpu),
-			'mode': data['mode']
+			'mode': data['mode'],
+			'desDictList': data['desDictList']
 		})
+
 		loss.backward()
-		self.optimizer.step()		 
+		self.optimizer.step()
 		return loss.item()
 
 	def run(self):
@@ -90,11 +91,9 @@ class Trainer(object):
 		for epoch in training_range:
 			res = 0.0
 			for data in self.data_loader:
-
 				loss = self.train_one_step(data)
 				res += loss
 			training_range.set_description("Epoch %d | loss: %f" % (epoch, res))
-			
 			if self.save_steps and self.checkpoint_dir and (epoch + 1) % self.save_steps == 0:
 				print("Epoch %d has finished, saving..." % (epoch))
 				self.model.save_checkpoint(os.path.join(self.checkpoint_dir + "-" + str(epoch) + ".ckpt"))

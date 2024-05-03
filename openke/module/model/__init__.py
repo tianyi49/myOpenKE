@@ -13,6 +13,10 @@ from .RESCAL import RESCAL
 from .Analogy import Analogy
 from .SimplE import SimplE
 from .RotatE import RotatE
+from .BertTransE import BertTransE
+from .MBertTransR import MBertTransR
+from .AttMBertTransR import AttMBertTransR
+from .HolE import HolE
 
 __all__ = [
     'Model',
@@ -25,5 +29,9 @@ __all__ = [
     'RESCAL',
     'Analogy',
     'SimplE',
-    'RotatE'
+    'RotatE',
+    'BertTransE',
+    "MBertTransR",
+    "AttMBertTransR",
+    "HolE"
 ]
