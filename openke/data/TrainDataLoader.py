@@ -1,6 +1,7 @@
 # coding:utf-8
 import os
 import ctypes
+import json
 import numpy as np
 
 class TrainDataSampler(object):
@@ -72,6 +73,7 @@ class TrainDataLoader(object):
 		self.negative_rel = neg_rel
 		self.sampling_mode = sampling_mode
 		self.cross_sampling_flag = 0
+
 		self.read()
 
 	def read(self):

@@ -3,10 +3,10 @@ import torch.nn as nn
 import torch.nn.functional as F
 from .Model import Model
 from gensim.models import KeyedVectors
-class TransH(Model):
+class cnnTransH(Model):
 
 	def __init__(self, ent_tot, rel_tot, dim = 100, p_norm = 1, norm_flag = True, margin = None, epsilon = None):
-		super(TransH, self).__init__(ent_tot, rel_tot)
+		super(cnnTransH, self).__init__(ent_tot, rel_tot)
 		
 		self.dim = dim
 		self.margin = margin
@@ -51,6 +51,7 @@ class TransH(Model):
 
 		# 应该加载描述向量的嵌入词表
 		des_vec_model = KeyedVectors.load('source/embed/des_word2vec_type100.wordvectors', mmap='r')
+
 	def _calc(self, h, t, r, mode):
 		if self.norm_flag:
 			h = F.normalize(h, 2, -1)

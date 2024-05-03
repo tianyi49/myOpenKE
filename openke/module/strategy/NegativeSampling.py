@@ -1,3 +1,5 @@
+from typing import List
+
 from .Strategy import Strategy
 
 class NegativeSampling(Strategy):
@@ -21,10 +23,17 @@ class NegativeSampling(Strategy):
 		return negative_score
 
 	def forward(self, data):
-		score = self.model(data)
-		p_score = self._get_positive_score(score)
-		n_score = self._get_negative_score(score)
-		loss_res = self.loss(p_score, n_score)
+		scores = self.model(data)
+		loss_res=0
+		if type(scores) == list:
+			for score in scores:
+				p_score = self._get_positive_score(score)
+				n_score = self._get_negative_score(score)
+				loss_res += self.loss(p_score, n_score)#调用损失函数对象的forward方法，计算和多个负样本的平均损失值
+		else:
+			p_score = self._get_positive_score(scores)
+			n_score = self._get_negative_score(scores)
+			loss_res += self.loss(p_score, n_score)
 		if self.regul_rate != 0:
 			loss_res += self.regul_rate * self.model.regularization(data)
 		if self.l3_regul_rate != 0:

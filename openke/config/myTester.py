@@ -14,7 +14,7 @@ from sklearn.metrics import roc_auc_score
 import copy
 from tqdm import tqdm
 
-class Tester(object):
+class myTester(object):
 
     def __init__(self, model = None, data_loader = None, use_gpu = True):
         base_file = os.path.abspath(os.path.join(os.path.dirname(__file__), "../release/Base.so"))
@@ -39,6 +39,7 @@ class Tester(object):
         self.data_loader = data_loader
         self.use_gpu = use_gpu
 
+
         if self.use_gpu:
             self.model.cuda()
 
@@ -59,7 +60,8 @@ class Tester(object):
         else:
             return Variable(torch.from_numpy(x))
 
-    def test_one_step(self, data):        
+    def test_one_step(self, data):
+
         return self.model.predict({
             'batch_h': self.to_var(data['batch_h'], self.use_gpu),
             'batch_t': self.to_var(data['batch_t'], self.use_gpu),
